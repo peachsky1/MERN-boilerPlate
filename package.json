@@ -1,20 +1,25 @@
 {
-  "name": "mern-boilerplate",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/peachsky1/MERN-boilerPlate.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/peachsky1/MERN-boilerPlate/issues"
-  },
-  "homepage": "https://github.com/peachsky1/MERN-boilerPlate#readme"
+    "name": "mern-boilerplate",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/peachsky1/MERN-boilerPlate.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/peachsky1/MERN-boilerPlate/issues"
+    },
+    "homepage": "https://github.com/peachsky1/MERN-boilerPlate#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "mongoose": "^6.0.5"
+    }
 }
