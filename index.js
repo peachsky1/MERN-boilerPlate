@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { User } = require("./models/User");
-
+const config = require("./config/key");
 const app = express();
 
 // https://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
@@ -12,9 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const port = 3000;
 mongoose
-    .connect(
-        "mongodb+srv://jasonlee:password@boilerplate.mal6y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    )
+    .connect(config.mongoURI)
     .then(() => console.log("Connected!"))
     .catch((err) => console.log(err));
 
