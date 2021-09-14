@@ -2,9 +2,14 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 // https://www.npmjs.com/package/bcrypt
 const saltRounds = 10;
+var jwt = require("jsonwebtoken");
 
 const userSchema = mongoose.Schema({
-    name: {
+    firstName: {
+        type: String,
+        maxlength: 50,
+    },
+    lastName: {
         type: String,
         maxlength: 50,
     },
@@ -15,7 +20,7 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        maxlength: 50,
+        maxlength: 100,
     },
     role: {
         type: Number,
@@ -50,6 +55,38 @@ userSchema.pre("save", function(next) {
         next();
     }
 });
+
+userSchema.methods.comparePassword = function(plainPassword, cb) {
+    bcrypt.compare(plainPassword, this.password, function(err, isMatch) {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
+};
+
+userSchema.methods.generateToken = function(cb) {
+    var user = this;
+    // jsonwebtoken allows to create token
+    var token = jwt.sign(user._id.toHexString(), "secretToken");
+    // user._id + secretToken = token.
+    // secretToken -> user._id
+    user.token = token;
+    user.save(function(err, user) {
+        if (err) return cb(err);
+        cb(null, user);
+    });
+};
+
+userSchema.statics.findByToken = function(token, cb) {
+    var user = this;
+    // decode token
+    jwt.verify(token, "secretToken", function(err, decoded) {
+        // comparing token from db and client cookie
+        user.findOne({ _id: decoded, token: token }, function(err, user) {
+            if (err) return cb(err);
+            cb(null, user);
+        });
+    });
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = { User };
