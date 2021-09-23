@@ -12,6 +12,22 @@ const authWrapper = (SpecificComponent, option, adminRoute = null) => {
     useEffect(() => {
       dispatch(auth()).then((response) => {
         console.log(response);
+        // not logged in
+        if (!response.payload.isAuth) {
+          if (option === true) {
+            props.history.push("/login");
+          }
+          // logged in
+        } else {
+          // admin page but not an admin user
+          if (adminRoute && !response.payload.isAdmin) {
+            props.history.push("/");
+          } else {
+            if (option === false) {
+              props.history.push("/");
+            }
+          }
+        }
       });
     }, []);
     return <SpecificComponent />;
