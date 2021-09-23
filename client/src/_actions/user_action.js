@@ -1,5 +1,6 @@
 import axios from "axios";
-import { LOGIN_USER, REGISTER_USER } from "../_actions/types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
+
 export function loginUser(body) {
   const request = axios
     .post("/api/users/login", body)
@@ -18,6 +19,16 @@ export function registerUser(body) {
   // return the request to reducer
   return {
     type: REGISTER_USER,
+    payload: request,
+  };
+}
+export function auth() {
+  const request = axios
+    .get("/api/users/auth")
+    .then((response) => response.data);
+  // return the request to reducer
+  return {
+    type: AUTH_USER,
     payload: request,
   };
 }
