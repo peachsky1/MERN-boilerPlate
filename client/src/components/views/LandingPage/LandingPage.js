@@ -27,7 +27,8 @@ function LandingPage(props) {
         height: "100vh",
       }}
     >
-      <h2>Landing page</h2>
+      <h2>MAIN</h2>
+
       <button onClick={onClickHandler}>Logout</button>
     </div>
   );

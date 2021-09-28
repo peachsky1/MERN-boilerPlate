@@ -22,6 +22,7 @@ export function registerUser(body) {
     payload: request,
   };
 }
+
 export function auth() {
   const request = axios
     .get("/api/users/auth")
